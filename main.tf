@@ -41,6 +41,9 @@ output "dudebox" {
 output "keyfile" {
   value = "${var.private_key_main}"
 }
+output "username" {
+  value = "${var.user_name}"
+}
 
 output "os_username" {
   value = "${var.os_username}"
