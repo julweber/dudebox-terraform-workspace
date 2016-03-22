@@ -45,6 +45,10 @@ output "username" {
   value = "${var.user_name}"
 }
 
+output "connection command" {
+  value = "ssh -i ${var.private_key_main} ${var.user_name}@${openstack_compute_instance_v2.dudebox.floating_ip}"
+}
+
 output "os_username" {
   value = "${var.os_username}"
 }
