@@ -29,8 +29,6 @@ ssh-keygen -t rsa -b 8192 -f $HOME/.ssh/YOUR_KEY_NAME
 cp configuration.tfvars.example configuration.tfvars
 vim configuration.tfvars # Adjust all settings in capital letters
 # Replace the key file locations with the generated keypair
-# Check the network to use for the installation using
-neutron net-list
 ```
 
 ## Plan

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Variables
-LOG_DIR=/home/ubuntu/logs
+LOG_DIR=$HOME/logs
 LOG_FILE=$LOG_DIR/provisioning.log
 RUBY_VERSION="2.2.3"
 
@@ -37,12 +37,12 @@ function install_packages {
 
 # rvm installation --------------------------------------------
 function install_rvm {
-  if [ ! -d /home/ubuntu/.rvm ]
+  if [ ! -d $HOME/.rvm ]
   then
     log "Installing RVM."
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
     curl -sSL https://get.rvm.io | bash -s stable
-    source /home/ubuntu/.rvm/scripts/rvm
+    source $HOME/.rvm/scripts/rvm
     rvm install $RUBY_VERSION
     rvm --default use $RUBY_VERSION
     gem install bundler
