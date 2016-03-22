@@ -4,6 +4,9 @@
 LOG_DIR=$HOME/logs
 LOG_FILE=$LOG_DIR/provisioning.log
 RUBY_VERSION="2.2.3"
+MOUNT_DIR=/var/vcap/store
+MOUNT_DEVICE_ROOT=/dev/vdc
+MOUNT_DEVICE=/dev/vdc1
 
 set -e
 
@@ -23,6 +26,32 @@ function log {
   msg="INFO: $date - $log"
   echo $msg >> $LOG_FILE
   echo $msg
+}
+
+# Persistent disk mount dir initialization
+function init_persistent_disk_mount_dir {
+  if [ -d $MOUNT_DIR ]
+  then
+    log "$MOUNT_DIR is already present."
+  else
+    log "Creating $MOUNT_DIR directory."
+    sudo mkdir -p $MOUNT_DIR
+  fi
+}
+
+# Persistent disk initialization
+function init_persistent_disk {
+  if [ -b $MOUNT_DEVICE ]
+  then
+    log "$MOUNT_DEVICE is already a block device."
+  else
+    log "Creating partition and ext4 fs on $MOUNT_DEVICE."
+    (echo n; echo p; echo 1; echo ; echo; echo w) | sudo fdisk $MOUNT_DEVICE_ROOT
+    sudo mkfs.ext4 $MOUNT_DEVICE
+    log "Mounting $MOUNT_DEVICE to $MOUNT_DIR."
+    sudo mount $MOUNT_DEVICE $MOUNT_DIR
+    sudo chown -R $USER $MOUNT_DIR
+  fi
 }
 
 # install default packages ------------------------------------
@@ -52,6 +81,8 @@ function install_rvm {
 }
 
 function main {
+  init_persistent_disk_mount_dir
+  init_persistent_disk
   install_packages
   install_rvm
 }

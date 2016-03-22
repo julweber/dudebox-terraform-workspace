@@ -9,10 +9,12 @@ This terraform workspace will generate the following setup:
   * Sub-network "dudenet_subnet1"
 * Router "dudenet_router" ([network_setup.tf](network_setup.tf))
   * Router interface "dudenet_subnet1_router_interface" -> "dudenet_subnet1"
+* Volume "dudebox_volume" ([main.tf](main.tf))
 * VM "dudebox" ([main.tf](main.tf))
   * in network dudenet_subnet1
   * with an attached floating ip
   * with security groups "dudenet_ssh", "dudenet_ping"
+  * attaches and initializes "dudebox_volume"
   * runs the provisioner script ([provision_vm.sh](provision_vm.sh))
 
 ## Pre-requisites

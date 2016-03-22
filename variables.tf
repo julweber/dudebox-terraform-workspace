@@ -7,6 +7,12 @@ variable "os_password" {}
 variable "os_region" {
   default = "hydranodes"
 }
+variable "volume_type" {
+  default = "EMC-ThinVolume"
+}
+variable "volume_size" {
+  default = 10
+}
 variable "os_fip_network_name" {
   default = "public"
 }

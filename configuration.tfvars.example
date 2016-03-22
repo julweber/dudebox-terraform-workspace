@@ -6,5 +6,6 @@ os_username="OS_USERNAME"
 os_password="OS_PASSWORD"
 public_key_main="/Users/YOUR_USER/.ssh/id_rsa.pub"
 private_key_main="/Users/YOUR_USER/.ssh/id_rsa"
+volume_size=10
 os_fip_network_name="public"
 os_fip_network_uuid="xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"

@@ -3,6 +3,15 @@ resource "openstack_compute_floatingip_v2" "dudebox_fip"{
   pool = "${var.os_fip_network_name}"
 }
 
+# Creates the Volume
+resource "openstack_blockstorage_volume_v1" "dudebox_volume" {
+  region = "${var.os_region}"
+  name = "dudebox_volume"
+  description = "The persistent storage for the dudebox VM"
+  size = "${var.volume_size}"
+  volume_type = "${var.volume_type}"
+}
+
 #Creates the VM
 resource "openstack_compute_instance_v2" "dudebox" {
   name            = "dudebox"
@@ -14,6 +23,10 @@ resource "openstack_compute_instance_v2" "dudebox" {
   # availability_zone = "${var.avl1_name}"
   network {
     uuid = "${openstack_networking_network_v2.dudenet.id}"
+  }
+  volume {
+    volume_id = "${openstack_blockstorage_volume_v1.dudebox_volume.id}"
+    device = "/dev/vdc"
   }
 
   connection {
