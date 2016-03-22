@@ -13,6 +13,7 @@ This terraform workspace will generate the following setup:
   * in network dudenet_subnet1
   * with an attached floating ip
   * with security groups "dudenet_ssh", "dudenet_ping"
+  * runs the provisioner script ([provision_vm.sh](provision_vm.sh))
 
 ## Pre-requisites
 * Install terraform: https://www.terraform.io/downloads.html
